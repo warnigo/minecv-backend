@@ -7,10 +7,10 @@
         </samp>
     </p>
     <p>
-       <img src="https://img.shields.io/badge/license-MIT-blue" alt="License">
-        <img src="https://img.shields.io/badge/version-1.0-blue" alt="Version">
-        <img src="https://img.shields.io/badge/contributing-welcome-blue" alt="Contributing">
-        <img src="https://img.shields.io/badge/status-active-blue" alt="Status">
+        <img src="https://img.shields.io/badge/license-MIT-00ADD8" alt="License">
+        <img src="https://img.shields.io/badge/version-1.0-00ADD8" alt="Version">
+        <img src="https://img.shields.io/badge/contributing-welcome-00ADD8" alt="Contributing">
+        <img src="https://img.shields.io/badge/status-active-00ADD8" alt="Status">
     </p>
 </div>
 
