@@ -4,12 +4,13 @@
         <samp>
         MineCV is a modern website designed to create quick and easy resumes. The platform helps users generate professional and visually appealing resumes.<br/>
         With its minimalistic design, simple interface, and flexible features, MineCV ensures a seamless experience for all users.<br/>
-        This platform is completely free to use and enables anyone to build high-quality resumes.
         </samp>
     </p>
     <p>
-        <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
-        <img src="https://img.shields.io/badge/author-Warnigo-blue" alt="Author">
+       <img src="https://img.shields.io/badge/license-MIT-blue" alt="License">
+        <img src="https://img.shields.io/badge/version-1.0-blue" alt="Version">
+        <img src="https://img.shields.io/badge/contributing-welcome-blue" alt="Contributing">
+        <img src="https://img.shields.io/badge/status-active-blue" alt="Status">
     </p>
 </div>
 
