@@ -14,8 +14,6 @@
     </p>
 </div>
 
----
-
 ## Features
 - Fully free platform for building professional resume.
 - Offers multiple customizable templates.
@@ -23,16 +21,12 @@
 - Simple and responsive interface for both mobile and desktop devices.
 - Backend designed to handle high performance and scalability.
 
----
-
 ## Tech Stack
 - [**Golang**](https://go.dev): High-performance and efficient programming language for building scalable backend services.
 - [**Gin Framework**](https://gin-gonic.com): A lightweight web framework for Golang, designed for speed and simplicity.
 - [**GORM**](https://gorm.io): An ORM library for Golang, making database interactions simple and efficient.
 - [**PostgreSQL**](https://www.postgresql.org): A robust, open-source relational database system used for storing and managing user data.
 - [**RabbitMQ**](https://www.rabbitmq.com): A reliable message broker for handling asynchronous tasks and communication between services.
-
----
 
 ## License
 This project is licensed under the MIT License. See the `LICENSE` file for details.
@@ -46,8 +40,6 @@ Contributions are welcome! If you'd like to report issues, suggest new features,
 
 ## Author
 MineCV is developed and maintained by [Warnigo](https://www.warnigo.uz).
-
----
 
 <div align="center">
     <samp>Build your professional resume with <b>MineCV</b> today!</samp>
