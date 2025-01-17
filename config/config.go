@@ -3,7 +3,7 @@ package config
 import (
 	"log"
 	"os"
-	
+
 	"github.com/joho/godotenv"
 )
 
@@ -42,7 +42,7 @@ func LoadConfig() {
 	AppConfig.PostgresPort = os.Getenv("POSTGRES_PORT")
 	AppConfig.PostgresUser = os.Getenv("POSTGRES_USER")
 	AppConfig.PostgresPassword = os.Getenv("POSTGRES_PASSWORD")
-	AppConfig.PostgresDatabase = os.Getenv("POSTGRES_DATABASE")
+	AppConfig.PostgresDatabase = os.Getenv("POSTGRES_DB")
 
 	if AppConfig.ApiVersion == "" || AppConfig.ApiPort == "" {
 		log.Fatal("Some required environment variables are missing, port and versions!")

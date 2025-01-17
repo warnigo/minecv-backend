@@ -16,12 +16,14 @@ var DB *gorm.DB
 func InitDatabase() {
 	// Constructor the DSN for postgres connection
 	dsn := fmt.Sprintf(
-		"host=%s port=%s user=%s dbname=%s sslmode=disable",
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		config.AppConfig.PostgresHost,
-		config.AppConfig.PostgresPort,
 		config.AppConfig.PostgresUser,
+		config.AppConfig.PostgresPassword,
 		config.AppConfig.PostgresDatabase,
+		config.AppConfig.PostgresPort,
 	)
+
 	// Connection to the database
 	var dbErr error
 	DB, dbErr = gorm.Open(postgres.Open(dsn), &gorm.Config{})
