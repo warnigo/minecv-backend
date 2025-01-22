@@ -14,6 +14,7 @@ type CustomClaims struct {
 	jwt.RegisteredClaims
 }
 
+// GenerateToken creates a new access token
 func GenerateToken(userId string) (string, error) {
 	expirationTime := time.Now().Add(1 * time.Hour)
 	claims := &CustomClaims{
@@ -28,6 +29,7 @@ func GenerateToken(userId string) (string, error) {
 	return token.SignedString([]byte(secret))
 }
 
+// GenerateRefreshToken creates a new refresh token
 func GenerateRefreshToken(userId string) (string, error) {
 	expirationTime := time.Now().Add(7 * 24 * time.Hour)
 	claims := &CustomClaims{
@@ -42,6 +44,7 @@ func GenerateRefreshToken(userId string) (string, error) {
 	return token.SignedString([]byte(secret))
 }
 
+// ParseToken validates the JWT token and returns claims
 func ParseToken(tokenString string) (*CustomClaims, error) {
 	secret := config.AppConfig.SecretKey
 	token, err := jwt.ParseWithClaims(tokenString, &CustomClaims{}, func(t *jwt.Token) (interface{}, error) {

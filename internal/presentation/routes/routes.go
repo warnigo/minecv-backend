@@ -2,7 +2,7 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	
+
 	"minecv/internal/presentation/controllers"
 )
 
@@ -13,6 +13,7 @@ func RegisterRoutes(public *gin.RouterGroup, protected *gin.RouterGroup) {
 	{
 		authGroup.POST("/register", controllers.Register)
 		authGroup.POST("/login", controllers.Login)
+		authGroup.POST("/refresh", controllers.RefreshToken)
 	}
 
 	// Protected routes

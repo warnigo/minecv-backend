@@ -13,6 +13,7 @@ import (
 	"minecv/pkg/lib"
 )
 
+// CreateUser added new user on database
 func CreateUser(input schemas.CreateUserSchemas) (*entities.UserEntity, string, string, error) {
 	// Check if the email is already registered
 	var existingUser entities.UserEntity
@@ -61,6 +62,7 @@ func CreateUser(input schemas.CreateUserSchemas) (*entities.UserEntity, string, 
 	return &newUser, accessToken, refreshToken, nil
 }
 
+// AuthenticateUser checks user credentials and returns user data if valid
 func AuthenticateUser(input schemas.LoginUserSchemas) (*entities.UserEntity, string, string, error) {
 	var user entities.UserEntity
 
@@ -94,4 +96,25 @@ func AuthenticateUser(input schemas.LoginUserSchemas) (*entities.UserEntity, str
 	}
 
 	return &user, accessToken, refreshToken, nil
+}
+
+// RefreshTokenService processes token refresh and generates new tokens
+func RefreshTokenService(refreshToken string) (string, string, error) {
+	claims, err := lib.ParseToken(refreshToken)
+	if err != nil {
+		return "", "", fmt.Errorf("invalid refresh token")
+	}
+
+	// Generate new access and refresh tokens
+	newAccessToken, err := lib.GenerateToken(claims.UserId)
+	if err != nil {
+		return "", "", fmt.Errorf("could not generate access token")
+	}
+
+	newRefreshToken, err := lib.GenerateRefreshToken(claims.UserId)
+	if err != nil {
+		return "", "", fmt.Errorf("could not generate refresh token")
+	}
+
+	return newAccessToken, newRefreshToken, nil
 }
