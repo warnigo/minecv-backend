@@ -17,6 +17,8 @@ type Config struct {
 	PostgresPassword string
 	PostgresDatabase string
 
+	SecretKey string
+
 	ApiVersion string
 	ApiPort    string
 }
@@ -43,6 +45,8 @@ func LoadConfig() {
 	AppConfig.PostgresUser = os.Getenv("POSTGRES_USER")
 	AppConfig.PostgresPassword = os.Getenv("POSTGRES_PASSWORD")
 	AppConfig.PostgresDatabase = os.Getenv("POSTGRES_DB")
+
+	AppConfig.SecretKey = os.Getenv("SECRET_KEY")
 
 	if AppConfig.ApiVersion == "" || AppConfig.ApiPort == "" {
 		log.Fatal("Some required environment variables are missing, port and versions!")

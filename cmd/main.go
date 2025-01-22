@@ -3,6 +3,7 @@ package main
 import (
 	"minecv/config"
 	"minecv/internal/infrastructure/database"
+	"minecv/internal/infrastructure/http"
 )
 
 // @title Minecv backend
@@ -18,4 +19,6 @@ func main() {
 	// AutoMigrate the database column
 	database.AutoMigrate()
 
+	// Initialize routes with gin
+	http.InitialServer()
 }

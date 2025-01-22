@@ -1,0 +1,19 @@
+[error]
+missing_or_invalid_token = "Missing or invalid token."
+invalid_token = "Invalid token."
+
+[validations]
+validation_failed = "Validation failed"
+invalid_input = "Invalid input"
+invalid_email = "Must be a valid email address"
+email_required = "Email is required"
+field_required = "This field is required"
+value_required = "A value is required"
+optional_field = "This field is optional"
+invalid_field = "This field is invalid"
+email_already_exists = "Email already exists"
+username_already_exists = "Username already exists"
+
+[auth]
+registered_successfully = "User registered successfully!"
+login_successful = "Login successful!"

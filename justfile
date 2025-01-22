@@ -45,6 +45,10 @@ migrate-new NAME:
 clean:
 	rm -rf bin
 
+# Clean all cache
+clear:
+    go clean -cache -modcache -testcache -fuzzcache
+
 # Start the application with live reload (requires `air`)
 dev:
 	air
