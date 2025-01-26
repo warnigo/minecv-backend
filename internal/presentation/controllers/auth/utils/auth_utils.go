@@ -1,4 +1,4 @@
-package responseutils
+package authutils
 
 import (
 	"minecv/internal/domain/entities"
