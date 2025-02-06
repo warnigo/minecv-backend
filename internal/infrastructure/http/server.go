@@ -27,7 +27,7 @@ func InitialServer() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
-		// Initialize I18n
+	// Initialize I18n
 	i18n := localization.NewI18n("en")
 	if i18n == nil {
 		fmt.Println("Failed to initialize I18n")
@@ -64,6 +64,8 @@ func InitialServer() {
 			"path":   c.Request.URL.Path,
 		})
 	})
+
+	protectedGroup.Use(middleware.AuthMiddleware(i18n))
 
 	// Register routes
 	routes.RegisterRoutes(publicGroup, protectedGroup)

@@ -9,7 +9,10 @@ import (
 
 // AutoMigrate perform the database migrations for all modals
 func AutoMigrate() {
-	err := DB.AutoMigrate(&entities.UserEntity{})
+	err := DB.AutoMigrate(
+		&entities.UserEntity{},
+		&entities.ResumeTemplateEntity{},
+	)
 	if err != nil {
 		log.Fatalf("Failed to run migrations: %v", err)
 	}

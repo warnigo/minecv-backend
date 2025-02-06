@@ -1,6 +1,6 @@
 [error]
-missing_or_invalid_token = "Missing or invalid token."
-invalid_token = "Invalid token."
+unauthorized = "Missing or invalid token!"
+invalid_token = "Invalid token!"
 
 [validations]
 validation_failed = "Validation failed"
@@ -19,3 +19,6 @@ invalid_payload = "Invalid request payload"
 registered_successfully = "User registered successfully!"
 login_successful = "Login successful!"
 token_refreshed_successfully = "Token refreshed successfully"
+
+[templates]
+failed_fetch = "Failed to fetch templates"

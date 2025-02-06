@@ -1,4 +1,4 @@
-package controllers
+package auth
 
 import (
 	"net/http"
@@ -9,8 +9,8 @@ import (
 	"minecv/internal/domain/schemas"
 	"minecv/internal/domain/services"
 	"minecv/internal/infrastructure/localization"
-	responseutils "minecv/internal/presentation/controllers/utils"
-	"minecv/internal/presentation/controllers/validation"
+	authutils "minecv/internal/presentation/controllers/auth/utils"
+	"minecv/internal/presentation/controllers/auth/validation"
 	"minecv/pkg/utils"
 )
 
@@ -50,7 +50,7 @@ func Register(c *gin.Context) {
 	}
 
 	responseData := map[string]interface{}{
-		"user":          responseutils.BuildUserResponse(user),
+		"user":          authutils.BuildUserResponse(user),
 		"access_token":  accessToken,
 		"refresh_token": refreshToken,
 	}
@@ -88,7 +88,7 @@ func Login(c *gin.Context) {
 	}
 
 	responseData := map[string]interface{}{
-		"user":          responseutils.BuildUserResponse(user),
+		"user":          authutils.BuildUserResponse(user),
 		"access_token":  accessToken,
 		"refresh_token": refreshToken,
 	}
