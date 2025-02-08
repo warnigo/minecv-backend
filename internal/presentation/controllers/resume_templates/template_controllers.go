@@ -29,7 +29,7 @@ func (controllers *TemplateController) GetTemplates(c *gin.Context) {
 		utils.RespondError(c, http.StatusInternalServerError, translate("templates.failed_fetch", nil))
 		return
 	}
-	c.JSON(http.StatusOK, templates)
+	utils.RespondSuccess(c, http.StatusOK, templates, translate("templates.success", nil))
 }
 
 // GetTemplateByID handles GET /templates/:id - Fetch a single template by ID

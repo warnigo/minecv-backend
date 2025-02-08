@@ -23,9 +23,7 @@ func AuthMiddleware(i18n *localization.I18n) gin.HandlerFunc {
 		// Get the token from the Authorization header
 		authHeader := c.GetHeader("Authorization")
 		if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"error": tranlate("error.unauthorized", nil),
-			})
+			utils.RespondError(c, http.StatusUnauthorized, tranlate("error.unauthorized", nil))
 			c.Abort()
 			return
 		} 
@@ -36,9 +34,7 @@ func AuthMiddleware(i18n *localization.I18n) gin.HandlerFunc {
 		// Validate the JWT
 		claims, err := lib.ParseToken(tokenString)
 		if err != nil {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"error": tranlate("error.invalid_token", nil),
-			})
+			utils.RespondError(c, http.StatusUnauthorized, tranlate("error.invalid_token", nil))
 			c.Abort()
 			return
 		}

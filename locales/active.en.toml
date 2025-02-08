@@ -22,3 +22,4 @@ token_refreshed_successfully = "Token refreshed successfully"
 
 [templates]
 failed_fetch = "Failed to fetch templates"
+"success" = "Templates Successful"

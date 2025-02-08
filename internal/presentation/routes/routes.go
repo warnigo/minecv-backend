@@ -17,7 +17,7 @@ func RegisterRoutes(public *gin.RouterGroup, protected *gin.RouterGroup) {
 
 	// Protected routes
 	ctrl := resume_templates.TemplateController{}
-	templates := protected.Group("/templates")
+	templates := protected.Group("/resume/templates")
 	{
 		templates.GET("/", ctrl.GetTemplates)
 		templates.GET("/:id", ctrl.GetTemplateByID)
