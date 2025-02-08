@@ -21,8 +21,12 @@ func (s *TemplateService) GetTemplateByID(id uint) (entities.ResumeTemplateEntit
 }
 
 // CreateTemplate creates a new resume resume_templates
-func (s *TemplateService) CreateTemplate(template entities.ResumeTemplateEntity) error {
-	return s.Repo.Create(template)
+func (s *TemplateService) CreateTemplate(template entities.ResumeTemplateEntity) (entities.ResumeTemplateEntity, error) {
+	createdTemplate, err := s.Repo.Create(template)
+	if err != nil {
+		return entities.ResumeTemplateEntity{}, err
+	}
+	return createdTemplate, nil
 }
 
 // UpdateTemplate updates an existing resume resume_templates

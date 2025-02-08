@@ -14,6 +14,7 @@ invalid_field = "This field is invalid"
 email_already_exists = "Email already exists"
 username_already_exists = "Username already exists"
 invalid_payload = "Invalid request payload"
+invalid_id = "Invalid ID"
 
 [auth]
 registered_successfully = "User registered successfully!"
@@ -22,4 +23,7 @@ token_refreshed_successfully = "Token refreshed successfully"
 
 [templates]
 failed_fetch = "Failed to fetch templates"
-"success" = "Templates Successful"
+success = "Templates Successful"
+not_found = "Template not found"
+failedCreateTemplate = "Failed to create template"
+createdSuccessfully = "Template created successfully"

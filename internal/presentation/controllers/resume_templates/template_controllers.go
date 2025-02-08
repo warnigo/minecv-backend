@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"minecv/internal/domain/entities"
+	"minecv/internal/domain/schemas"
 	"minecv/internal/domain/services"
 	"minecv/internal/infrastructure/localization"
 	"minecv/pkg/utils"
@@ -34,33 +35,61 @@ func (controllers *TemplateController) GetTemplates(c *gin.Context) {
 
 // GetTemplateByID handles GET /templates/:id - Fetch a single template by ID
 func (controllers *TemplateController) GetTemplateByID(c *gin.Context) {
+	localizer, _ := c.Get(("localizer"))
+	i18n := localizer.(*localization.I18n)
+	lang := c.GetString(("lang"))
+	translate := utils.GetTranslator(i18n, lang)
+
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid ID"})
+		utils.RespondError(c, http.StatusBadRequest, translate("validations.invalid_id", nil))
 		return
 	}
 	template, err := controllers.Service.GetTemplateByID(uint(id))
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "Template not found"})
+		utils.RespondError(c, http.StatusNotFound, translate("templates.not_found", nil))
 		return
 	}
-	c.JSON(http.StatusOK, template)
+	utils.RespondSuccess(c, http.StatusOK, template, translate("templates.success", nil))
 }
 
 // CreateTemplate handles POST /templates - Create a new template
 func (controllers *TemplateController) CreateTemplate(c *gin.Context) {
-	var template entities.ResumeTemplateEntity
-	if err := c.ShouldBindJSON(&template); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+	localizer, _ := c.Get("localizer")
+	i18n := localizer.(*localization.I18n)
+	lang := c.GetString("lang")
+	translate := utils.GetTranslator(i18n, lang)
+
+	var req schemas.CreateResumeTemplateSchemas
+	if err := c.ShouldBindJSON(&req); err != nil {
+		utils.RespondError(c, http.StatusBadRequest, translate("validations.invalid_input", nil))
 		return
 	}
-	err := controllers.Service.CreateTemplate(template)
+
+	template := entities.ResumeTemplateEntity{
+		Title:              req.Title,
+		Description:        req.Description,
+		Category:           req.Category,
+		HTMLContent:        req.HTMLContent,
+		CSSContent:         req.CSSContent,
+		CSSVariables:       req.CSSVariables,
+		Sections:           req.Sections,
+		ThumbnailImg:       req.ThumbnailImg,
+		PreviewURL:         req.PreviewURL,
+		DefaultFont:        req.DefaultFont,
+		DefaultColorScheme: req.DefaultColorScheme,
+		Compatibility:      entities.PaperFormat(req.Compatibility),
+	}
+
+	createdTemplate, err := controllers.Service.CreateTemplate(template)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create template"})
+		utils.RespondError(c, http.StatusInternalServerError, translate("templates.failedCreateTemplate", nil))
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{"message": "Template created successfully"})
+
+	utils.RespondSuccess(c, http.StatusCreated, createdTemplate, translate("templates.createdSuccessfully", nil))
 }
+
 
 // UpdateTemplate handles PUT /templates/:id - Update an existing template
 func (controllers *TemplateController) UpdateTemplate(c *gin.Context) {

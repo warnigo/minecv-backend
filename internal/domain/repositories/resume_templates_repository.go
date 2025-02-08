@@ -23,8 +23,11 @@ func (r *TemplateRepository) GetByID(id uint) (entities.ResumeTemplateEntity, er
 }
 
 // Create adds a new resume resume_templates to the database
-func (r *TemplateRepository) Create(template entities.ResumeTemplateEntity) error {
-	return database.DB.Create(&template).Error
+func (r *TemplateRepository) Create(template entities.ResumeTemplateEntity) (entities.ResumeTemplateEntity, error) {
+	if err := database.DB.Create(&template).Error; err != nil {
+		return entities.ResumeTemplateEntity{}, err
+	}
+	return template, nil
 }
 
 // Update modifies an existing resume resume_templates
