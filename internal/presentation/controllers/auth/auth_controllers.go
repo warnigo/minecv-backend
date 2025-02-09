@@ -26,18 +26,18 @@ import (
 // @Router /register [post]
 func Register(c *gin.Context) {
 	var input schemas.CreateUserSchemas
-	lang := c.GetString("lang")
-	localizer, _ := c.Get("localizer")
-	i18n := localizer.(*localization.I18n)
-	translate := utils.GetTranslator(i18n, lang)
+	translate := c.MustGet("translator").(utils.TranslatorFunc)
 
 	if err := c.ShouldBindJSON(&input); err != nil {
-		utils.RespondValidationError(c, map[string]string{"error": "validations.invalid_input"}, "validations.validation_failed")
+		utils.RespondValidationError(c, map[string]string{"error": translate("validations.invalid_input", nil)}, translate("validations.validation_failed", nil))
 		return
 	}
 
 	validate := validator.New()
 	if err := validate.Struct(input); err != nil {
+		i18n := c.MustGet("i18n").(*localization.I18n)
+		lang := c.GetString("lang")
+
 		validationErrors := validation.ParseValidationErrors(err, i18n, lang)
 		utils.RespondValidationError(c, validationErrors, translate("validations.validation_failed", nil))
 		return
@@ -58,7 +58,7 @@ func Register(c *gin.Context) {
 	utils.RespondSuccess(c, http.StatusCreated, responseData, translate("auth.registered_successfully", nil))
 }
 
-// LoginUser godoc
+// Login godoc
 // @Summary Log in a user
 // @Description Log in by providing email and password to receive a JWT
 // @Tags Auth
@@ -71,10 +71,7 @@ func Register(c *gin.Context) {
 func Login(c *gin.Context) {
 	var input schemas.LoginUserSchemas
 
-	lang := c.GetString("lang")
-	localizer, _ := c.Get("localizer")
-	i18n := localizer.(*localization.I18n)
-	translate := utils.GetTranslator(i18n, lang)
+	translate := c.MustGet("translator").(utils.TranslatorFunc)
 
 	if err := c.ShouldBindJSON(&input); err != nil {
 		utils.RespondValidationError(c, map[string]string{"error": "validations.invalid_input"}, "validations.validation_failed")
@@ -112,10 +109,7 @@ func RefreshToken(c *gin.Context) {
 		RefreshToken string `json:"refresh_token"`
 	}
 
-	lang := c.GetString("lang")
-	localizer, _ := c.Get("localizer")
-	i18n := localizer.(*localization.I18n)
-	translate := utils.GetTranslator(i18n, lang)
+	translate := c.MustGet("translator").(utils.TranslatorFunc)
 
 	if err := c.ShouldBindJSON(&request); err != nil {
 		utils.RespondError(c, http.StatusBadRequest, translate("validations.invalid_payload", nil))

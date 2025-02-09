@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
+	"minecv/pkg/utils"
 
 	"minecv/internal/infrastructure/localization"
 )
@@ -12,8 +13,11 @@ func LocalizationMiddleware(i18n *localization.I18n) gin.HandlerFunc {
 		if lang == "" {
 			lang = "en"
 		}
+
+		c.Set("translator", utils.GetTranslator(i18n, lang))
+		c.Set("i18n", i18n)
 		c.Set("lang", lang)
-		c.Set("localizer", i18n)
+
 		c.Next()
 	}
 }
