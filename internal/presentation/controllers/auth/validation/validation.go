@@ -4,11 +4,10 @@ import (
 	"errors"
 
 	"github.com/go-playground/validator/v10"
-
 	"minecv/internal/infrastructure/localization"
 )
 
-// ParseValidationErrors maps validation errors to a human-readable format with localized messages.
+// ParseValidationErrors maps validation errors to localized messages.
 func ParseValidationErrors(err error, i18n *localization.I18n, lang string) map[string]string {
 	validationErrors := make(map[string]string)
 	var errs validator.ValidationErrors
@@ -17,11 +16,13 @@ func ParseValidationErrors(err error, i18n *localization.I18n, lang string) map[
 			normalizedField := normalizeFieldName(fieldErr.Field())
 			validationErrors[normalizedField] = validationErrorMessage(fieldErr, i18n, lang)
 		}
+	} else {
+		validationErrors["error"] = i18n.Translate("validations.unknown_error", lang, nil)
 	}
 	return validationErrors
 }
 
-// validationErrorMessage maps a validator.FieldError to a user-friendly, localized error message.
+// validationErrorMessage maps validator.FieldError to a localized error message.
 func validationErrorMessage(fe validator.FieldError, i18n *localization.I18n, lang string) string {
 	switch fe.Tag() {
 	case "required":
@@ -35,7 +36,7 @@ func validationErrorMessage(fe validator.FieldError, i18n *localization.I18n, la
 	}
 }
 
-// fieldSpecificRequiredMessage generates localized messages for required fields based on their types and tags.
+// fieldSpecificRequiredMessage generates localized messages for required fields.
 func fieldSpecificRequiredMessage(fe validator.FieldError, i18n *localization.I18n, lang string) string {
 	switch fe.Kind().String() {
 	case "string":
@@ -48,7 +49,7 @@ func fieldSpecificRequiredMessage(fe validator.FieldError, i18n *localization.I1
 	}
 }
 
-// normalizeFieldName converts CamelCase field names to snake_case for consistent error message formatting.
+// normalizeFieldName converts CamelCase field names to snake_case.
 func normalizeFieldName(field string) string {
 	var result []rune
 	runes := []rune(field)

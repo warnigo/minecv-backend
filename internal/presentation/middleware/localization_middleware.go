@@ -13,8 +13,10 @@ func LocalizationMiddleware(i18n *localization.I18n) gin.HandlerFunc {
 		if lang == "" {
 			lang = "en"
 		}
-		translator := utils.GetTranslator(i18n, lang)
-		c.Set("translator", translator)
+
+		c.Set("translator", utils.GetTranslator(i18n, lang))
+		c.Set("i18n", i18n)
+		c.Set("lang", lang)
 
 		c.Next()
 	}
