@@ -7,17 +7,16 @@ import (
 )
 
 func RegisterRoutes(public *gin.RouterGroup, protected *gin.RouterGroup) {
+	ctrl := resume_templates.TemplateController{}
+
 	// Public routes
-	authGroup := public.Group("/auth")
+	authGroup := public.Group("/app/auth")
 	{
 		authGroup.POST("/register", auth.Register)
 		authGroup.POST("/login", auth.Login)
 		authGroup.POST("/refresh", auth.RefreshToken)
 	}
-
-	// Protected routes
-	ctrl := resume_templates.TemplateController{}
-	templates := protected.Group("/resume/templates")
+	templates := public.Group("/resume/templates")
 	{
 		templates.GET("/", ctrl.GetTemplates)
 		templates.GET("/:id", ctrl.GetTemplateByID)
@@ -25,4 +24,6 @@ func RegisterRoutes(public *gin.RouterGroup, protected *gin.RouterGroup) {
 		templates.PUT("/", ctrl.UpdateTemplate)
 		templates.DELETE("/:id", ctrl.DeleteTemplate)
 	}
+
+	// Protected routes
 }
