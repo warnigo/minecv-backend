@@ -16,7 +16,7 @@ func (s *TemplateService) GetAllTemplates() ([]entities.ResumeTemplateEntity, er
 }
 
 // GetTemplateByID returns a resume resume_templates by ID
-func (s *TemplateService) GetTemplateByID(id uint) (entities.ResumeTemplateEntity, error) {
+func (s *TemplateService) GetTemplateByID(id string) (entities.ResumeTemplateEntity, error) {
 	return s.Repo.GetByID(id)
 }
 
@@ -30,11 +30,15 @@ func (s *TemplateService) CreateTemplate(template entities.ResumeTemplateEntity)
 }
 
 // UpdateTemplate updates an existing resume resume_templates
-func (s *TemplateService) UpdateTemplate(template entities.ResumeTemplateEntity) error {
-	return s.Repo.Update(template)
+func (s *TemplateService) UpdateTemplate(template entities.ResumeTemplateEntity) (entities.ResumeTemplateEntity, error) {
+	updatedTemplate, err := s.Repo.Update(template)
+	if err != nil {
+		return entities.ResumeTemplateEntity{}, err
+	}
+	return updatedTemplate, nil
 }
 
 // DeleteTemplate deletes a resume resume_templates by ID
-func (s *TemplateService) DeleteTemplate(id uint) error {
+func (s *TemplateService) DeleteTemplate(id string) error {
 	return s.Repo.Delete(id)
 }

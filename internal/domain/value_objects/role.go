@@ -4,5 +4,6 @@ package valueobjects
 type Role string
 
 const (
-	RoleUser Role = "user"
+	RoleUser  Role = "user"
+	RoleAdmin Role = "admin"
 )

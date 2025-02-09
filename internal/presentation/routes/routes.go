@@ -21,7 +21,7 @@ func RegisterRoutes(public *gin.RouterGroup, protected *gin.RouterGroup) {
 		templates.GET("/", ctrl.GetTemplates)
 		templates.GET("/:id", ctrl.GetTemplateByID)
 		templates.POST("/", ctrl.CreateTemplate)
-		templates.PUT("/", ctrl.UpdateTemplate)
+		templates.PUT("/:id", ctrl.UpdateTemplate)
 		templates.DELETE("/:id", ctrl.DeleteTemplate)
 	}
 

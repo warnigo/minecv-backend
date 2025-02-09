@@ -13,7 +13,7 @@ import (
 
 // AuthMiddleware validates the JWT token from the Authorization header and ensures user authentication.
 func AuthMiddleware(i18n *localization.I18n) gin.HandlerFunc {
-	return func(c *gin.Context){
+	return func(c *gin.Context) {
 		// Get the user's preferred language
 		lang := c.GetString("lang")
 
@@ -26,7 +26,7 @@ func AuthMiddleware(i18n *localization.I18n) gin.HandlerFunc {
 			utils.RespondError(c, http.StatusUnauthorized, tranlate("error.unauthorized", nil))
 			c.Abort()
 			return
-		} 
+		}
 
 		// Remove the "Bearer " prefix
 		tokenString := strings.TrimPrefix(authHeader, "Bearer ")

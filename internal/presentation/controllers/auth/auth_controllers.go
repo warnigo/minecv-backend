@@ -58,7 +58,7 @@ func Register(c *gin.Context) {
 	utils.RespondSuccess(c, http.StatusCreated, responseData, translate("auth.registered_successfully", nil))
 }
 
-// LoginUser godoc
+// Login godoc
 // @Summary Log in a user
 // @Description Log in by providing email and password to receive a JWT
 // @Tags Auth

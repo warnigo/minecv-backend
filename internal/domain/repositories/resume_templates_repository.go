@@ -16,9 +16,9 @@ func (r *TemplateRepository) GetAll() ([]entities.ResumeTemplateEntity, error) {
 }
 
 // GetByID retrieves a resume resume_templates by ID
-func (r *TemplateRepository) GetByID(id uint) (entities.ResumeTemplateEntity, error) {
+func (r *TemplateRepository) GetByID(id string) (entities.ResumeTemplateEntity, error) {
 	var template entities.ResumeTemplateEntity
-	err := database.DB.First(&template, id).Error
+	err := database.DB.Where("id = ?", id).First(&template).Error
 	return template, err
 }
 
@@ -30,12 +30,15 @@ func (r *TemplateRepository) Create(template entities.ResumeTemplateEntity) (ent
 	return template, nil
 }
 
-// Update modifies an existing resume resume_templates
-func (r *TemplateRepository) Update(template entities.ResumeTemplateEntity) error {
-	return database.DB.Save(&template).Error
+// Update modifies an existing resume template and returns the updated entity
+func (r *TemplateRepository) Update(template entities.ResumeTemplateEntity) (entities.ResumeTemplateEntity, error) {
+	if err := database.DB.Save(&template).Error; err != nil {
+		return entities.ResumeTemplateEntity{}, err
+	}
+	return template, nil
 }
 
 // Delete removes a resume resume_templates by ID
-func (r *TemplateRepository) Delete(id uint) error {
-	return database.DB.Delete(&entities.ResumeTemplateEntity{}, id).Error
+func (r *TemplateRepository) Delete(id string) error {
+	return database.DB.Where("id = ?", id).Delete(&entities.ResumeTemplateEntity{}).Error
 }
